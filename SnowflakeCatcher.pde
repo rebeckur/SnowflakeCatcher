@@ -27,6 +27,7 @@ void mouseDragged()
 {
   //your code here
   stroke(25,100, 50);
+  strokeWeight(2);
   fill(25,100, 50);
   ellipse(mouseX, mouseY, 7, 7);
 }
@@ -36,6 +37,10 @@ class Snowflake
   //class member variable declarations
   int snowX, snowY;
   boolean isMoving;
+
+  int opa = 1200;
+  int eraseOpacity = 300;
+
   Snowflake()
   {
     //class member variable initializations
@@ -46,14 +51,18 @@ class Snowflake
   void show()
   {
     //your code here
-    stroke(0);
-    fill(255);
+    noStroke();
+    fill(255, 255, 255, opa);
     ellipse(snowX, snowY, 5, 5);
+    if (isMoving == false)
+    {
+      opa-=20;
+    }
   }
   void lookDown()
   {
     //your code here
-    if ((snowY >= 0 && snowY < 500) && (get(snowX, snowY+3) != color(0)))
+    if ((snowY >= 0 && snowY < 500) && (get(snowX, snowY+4) != color(0)))
     {
       isMoving = false;
     }
@@ -61,13 +70,18 @@ class Snowflake
     {
       isMoving = true;  
     }
+
   }
   void erase()
   {
     //your code here
     noStroke();
-    fill(0);
-    ellipse(snowX, snowY, 7, 7);
+    fill(0, 0, 0, eraseOpacity);
+    ellipse(snowX, snowY, 8, 8);
+    if (isMoving = false)
+    {
+      eraseOpacity-=100;
+    }
   }
   void move()
   {
@@ -80,7 +94,7 @@ class Snowflake
   void wrap()
   {
     //your code here
-    if (snowY >= 495)
+    if (snowY >= 496)
     {
       snowY = 0;
       snowX = (int)(Math.random()*401);
